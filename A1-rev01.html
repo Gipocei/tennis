@@ -555,11 +555,11 @@
         <!-- Header -->
         <div class="header">
             <div class="tournament-title">
-                <h1>CAMPIONATO A1 C.T.P. 2024-2025</h1>
-                <h3>CLASSIFICA AGGIORNATA AL <span id="current-date">03/01/2026</span></h3>
+                <h1>Campionato A1 C.T.P. 2025-2026</h1>
+                <h3>CLASSIFICA AGGIORNATA AL <span id="current-date">10/01/2026</span></h3>
             </div>
             
-            <div class="player-list" id="header-player-list">
+            <div class="player-list" id="header-player-list" style="display: none">
                 <!-- Lista giocatori generata da JavaScript -->
             </div>
             
@@ -579,22 +579,25 @@
             <h3><i class="material-icons">info</i> COME INSERIRE I RISULTATI</h3>
             <div class="instruction-steps">
                 <div class="instruction-step">
-                    <h4><span class="step-number">1</span> Accedi al Google Form</h4>
+                    <h4><span class="step-number">1</span> Inserisci risultato partita</h4>
                     <p>Usa il link qui sotto per inserire i risultati delle partite.</p>
                     <a id="google-form-link" href="#" target="_blank" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-                        <i class="material-icons">edit</i> Inserisci Risultato (Google Form)
+                        <i class="material-icons">edit</i> Inserisci Risultato
                     </a>
                 </div>
                 <div class="instruction-step">
                     <h4><span class="step-number">2</span> Compila il form</h4>
-                    <p>Seleziona   giocatore 1 e inserisci i game giocatore 1.<br>Seleziona giocatore 2 e inserisci i game giocatore 2.
+                    <p>Seleziona   Giocatore 1 <br>
+                      Inserisci Punteggio Giocatore 1<br>Seleziona Giocatore 2<br>
+ Inserisci Punteggio giocatore 2<br>
+Invia
                     </p>
                     
                     
                 </div>
                 <div class="instruction-step">
                     <h4><span class="step-number">3</span> Aggiorna la pagina</h4>
-                    <p>Dopo aver inviato il form, aggiorna questa pagina per vedere i risultati aggiornati.</p>
+                    <p>Dopo aver inviato, aggiorna questa pagina per vedere i risultati aggiornati.</p>
                     <p>I dati si aggiornano in ogni caso automaticamente ogni 60 secondi.</p>
                 </div>
             </div>
@@ -638,10 +641,10 @@
                 <!-- Tabella Risultati -->
                 <div class="mdl-tabs__panel is-active" id="results-panel">
                     <h3>Tabella Risultati</h3>
-                    <p>All'incrocio tra due giocatori viene mostrato il risultato della partita (es. 6-4)</p>
+                    
                     <div class="info-box">
-                        <p><strong>Legenda:</strong> Il numero indica i games vinti dal giocatore di riga contro il giocatore di colonna</p>
-                        <p><strong>Tip:</strong> Passa il mouse su un risultato per vedere la data e ora della partita</p>
+                        
+                        <p><strong>Tip:</strong> Passa il mouse su un risultato per vedere giocatori, data e ora della partita</p>
                     </div>
                     <div class="table-container">
                         <table class="results-table" id="results-table">
@@ -685,7 +688,7 @@
                     <h3>Cronologia Partite</h3>
                     <p>Ultimi risultati inseriti dal Google Form.</p>
                     <div class="info-box">
-                        <p><strong>Formato data/ora:</strong> Ora Giorno/Mese/Anno</p>
+                        <p><strong>Formato data/ora:</strong> Da correggere</p>
                     </div>
                     <div class="table-container">
                         <table class="history-table" id="history-table">
