@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="robots" content="noindex">
+    <title>Torneo Tennis A1 - Campionato C.T.P. 2025-2026</title>
+    <!-- Material Design Lite -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-blue.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3f51b5;
+            --secondary-color: #ff4081;
+            --success-color: #4caf50;
+            --warning-color: #ff9800;
+            --danger-color: #f44336;
+            --info-color: #2196f3;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        h1, h2, h3, h4 {
+            color: #333;
+            margin-top: 0;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 2.2em;
+        }
+        
+        h2 {
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        /* Intestazione senza sfumatura e testo più leggibile */
+        .tournament-title {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .tournament-title h1 {
+            color: white;
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Instructions Section */
+        .instructions {
+            background-color: #e8f5e9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--success-color);
+        }
+        
+        .instructions h3 {
+            color: var(--success-color);
+            margin-top: 0;
+        }
+        
+        .instruction-steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .instruction-step {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        /* Tabella risultati con intestazioni sticky */
+        .table-container {
+            overflow-x: auto;
+            overflow-y: auto;
+            max-height: 80vh; /* per permettere lo scroll verticale */
+            margin-bottom: 30px;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain; /* migliora l'esperienza su mobile */
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            position: relative;
+        }
+        
+        .results-table {
+            border-collapse: collapse;
+            width: 100%;
+            table-layout: auto;
+        }
+        
+        .results-table th, .results-table td {
+            border: 1px solid #ddd;
+            padding: 3px 3px; /* aumentato da 2px 2px */
+            text-align: center;
+            box-sizing: border-box;
+        }
+        
+        .results-table td {
+            min-width: 30px;
+            height: 30px;
+            font-size: 12px; /* aumentato da 11px */
+            background-color: white;
+        }
+        
+        .results-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 500;
+        }
+        
+        /* Intestazioni di colonna sticky (tutte) */
+        .results-table thead th {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            background-color: var(--primary-color); /* rafforzato */
+        }
+        
+        /* Cella d'angolo (prima intestazione in alto a sinistra) */
+        .corner-cell {
+            position: sticky !important;
+            top: 0;
+            left: 0;
+            z-index: 3 !important;
+            background-color: var(--primary-color);
+        }
+        
+        /* Intestazioni di riga (prima colonna) sticky */
+        .horizontal-header {
+            position: sticky;
+            left: 0;
+            z-index: 1;
+            background-color: var(--primary-color);
+            text-align: left !important;
+            white-space: nowrap;
+            padding: 5px 3px !important; /* aumentato */
+            font-size: 14px; /* aumentato da 13px */
+            font-weight: 500;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 80px; /* provvisorio, sovrascritto da JS */
+            min-width: 80px;
+            max-width: 80px;
+        }
+        
+        /* Intestazioni verticali: con writing-mode vertical-rl e rotate(180deg) */
+        .vertical-header {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            text-align: left;
+            white-space: nowrap;
+            padding: 3px 0 !important; /* aumentato */
+            font-size: 14px; /* aumentato da 13px */
+            letter-spacing: 0.2px;
+            font-weight: 500;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 22px; /* provvisorio, sovrascritto da JS */
+            min-width: 22px;
+            max-width: 22px;
+            height: 120px; /* provvisorio, sovrascritto da JS */
+            min-height: 120px;
+            background-color: var(--primary-color);
+        }
+        
+        .results-table tr:hover td {
+            background-color: rgba(63, 81, 181, 0.05);
+        }
+        
+        .results-table td.highlight-row {
+            background-color: rgba(255, 64, 129, 0.1) !important;
+        }
+        
+        .results-table td.highlight-col {
+            background-color: rgba(255, 64, 129, 0.1) !important;
+        }
+        
+        .match-cell {
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 12px; /* aumentato da 11px */
+            padding: 3px 2px !important; /* aumentato */
+        }
+        
+        .match-cell:hover {
+            background-color: rgba(63, 81, 181, 0.1);
+        }
+        
+        .empty-cell {
+            background-color: #f9f9f9;
+        }
+        
+        .diagonal-cell {
+            background-color: #e0e0e0 !important;
+            color: #999;
+        }
+        
+        /* Standings Table Styling - colonna nomi fissa e allineata a sinistra */
+        .standings-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: auto;
+        }
+        
+        .standings-table th, .standings-table td {
+            border: 1px solid #ddd;
+            padding: 10px 6px;
+            text-align: center;
+            font-size: 13px;
+        }
+        
+        .standings-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 500;
+        }
+        
+        /* Colonna giocatore: larghezza fissa e allineata a sinistra */
+        .player-column {
+            width: 140px !important;
+            min-width: 140px !important;
+            max-width: 140px !important;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            text-align: left !important;
+            padding-left: 8px !important;
+            padding-right: 8px !important;
+			font-weight: bold;  /* aggiunto per nomi in grassetto */
+        }
+        
+        .standings-table tr:hover {
+            background-color: rgba(63, 81, 181, 0.05);
+        }
+        
+        .position-cell {
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .position-1, .position-2, .position-3 {
+            background-color: rgba(76, 175, 80, 0.2) !important;
+        }
+        
+        .position-4, .position-5 {
+            background-color: rgba(255, 152, 0, 0.2) !important;
+        }
+        
+        .position-last-4, .position-last-3, .position-last-2, .position-last-1 {
+            background-color: rgba(244, 67, 54, 0.2) !important;
+        }
+        
+        .position-last-5, .position-last-6 {
+            background-color: rgba(255, 193, 7, 0.2) !important;
+        }
+        
+        .games-won-high {
+            color: var(--success-color);
+            font-weight: bold;
+        }
+        
+        .games-lost-low {
+            color: var(--success-color);
+            font-weight: bold;
+        }
+        
+        .games-won-low {
+            color: var(--danger-color);
+            font-weight: bold;
+        }
+        
+        .games-lost-high {
+            color: var(--danger-color);
+            font-weight: bold;
+        }
+        
+        /* History Table Styling */
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .history-table th, .history-table td {
+            border: 1px solid #ddd;
+            padding: 10px 6px;
+            text-align: center;
+            font-size: 13px;
+        }
+        
+        .history-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 500;
+        }
+        
+        .history-table tr:hover {
+            background-color: rgba(63, 81, 181, 0.05);
+        }
+        
+        /* Tabs for multiple tables */
+        .mdl-tabs__panel {
+            padding: 20px 0;
+        }
+        
+        /* Divisore verticale tra i tab */
+        .mdl-tabs__tab-bar .mdl-tabs__tab {
+            border-right: 1px solid rgba(0,0,0,0.1);
+        }
+        .mdl-tabs__tab-bar .mdl-tabs__tab:last-child {
+            border-right: none;
+        }
+        
+        /* Google Sheets Info */
+        .sheets-info {
+            background-color: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--info-color);
+        }
+        
+        .sheets-info h3 {
+            color: var(--info-color);
+            margin-top: 0;
+        }
+        
+        /* Loading and Status */
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        
+        .last-update {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .refresh-button {
+            margin-left: 10px;
+        }
+        
+        /* Player List */
+        .player-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+        
+        .player-tag {
+            background-color: #e8eaf6;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: var(--primary-color);
+            border: 1px solid #c5cae9;
+            white-space: nowrap;
+        }
+        
+        /* Configuration Notice */
+        .config-notice {
+            background-color: #fff8e1;
+            border: 2px dashed var(--warning-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .config-notice h3 {
+            color: var(--warning-color);
+            margin-top: 0;
+        }
+        
+        .config-section {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        /* Responsive: mantenere sticky e ridimensionare */
+        @media (max-width: 768px) {
+            .instruction-steps {
+                flex-direction: column;
+            }
+            
+            .instruction-step {
+                min-width: 100%;
+            }
+            
+            .table-container {
+                max-height: 70vh;
+            }
+            
+            .results-table td {
+                min-width: 26px;        /* aumentato */
+                height: 32px;            /* aumentato */
+                font-size: 12px;         /* aumentato da 11px */
+                padding: 3px 3px;        /* aumentato */
+            }
+            
+            .vertical-header {
+                font-size: 14px;         /* aumentato da 13px */
+                width: 22px;             /* aumentato */
+                min-width: 22px;
+                max-width: 22px;
+                padding: 3px 0 !important; /* aumentato */
+            }
+            
+            .horizontal-header {
+                font-size: 14px;         /* aumentato da 13px */
+                padding: 5px 3px !important; /* aumentato */
+            }
+            
+            .match-cell {
+                font-size: 12px;         /* aumentato da 11px */
+                padding: 3px 3px !important; /* aumentato */
+            }
+            
+            .tournament-title h1 {
+                font-size: 1.8em;
+            }
+            
+            .player-list {
+                gap: 6px;
+            }
+            
+            .player-tag {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+            
+            .player-column {
+                width: 100px !important;
+                min-width: 100px !important;
+                max-width: 100px !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .tournament-title {
+                padding: 15px;
+            }
+            
+            .tournament-title h1 {
+                font-size: 1.5em;
+            }
+            
+            .results-table td {
+                height: 30px;            /* aumentato */
+                font-size: 12px;         /* aumentato da 11px */
+                padding: 3px 2px;        /* aumentato */
+            }
+            
+            .vertical-header {
+                width: 20px;             /* aumentato */
+                min-width: 20px;
+                max-width: 20px;
+                font-size: 13px;         /* aumentato da 12px */
+                padding: 3px 0 !important;
+            }
+            
+            .horizontal-header {
+                font-size: 13px;         /* aumentato da 12px */
+                padding: 5px 3px !important;
+            }
+            
+            .match-cell {
+                font-size: 12px;         /* aumentato da 11px */
+                padding: 3px 2px !important;
+            }
+            
+            .player-column {
+                width: 80px !important;
+                min-width: 80px !important;
+                max-width: 80px !important;
+            }
+        }
+        
+        .export-section {
+            background-color: #f3e5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid #9c27b0;
+        }
+        
+        .export-section h4 {
+            color: #7b1fa2;
+            margin-top: 0;
+        }
+        
+        .info-box {
+            background-color: #f1f8e9;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #689f38;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- =========================================== -->
+        <!-- ZONA CONFIGURAZIONE -- DA MODIFICARE -->
+        <!-- =========================================== -->
+        <div class="config-notice" style="display: none">
+            <h3><i class="material-icons">settings</i> ZONA CONFIGURAZIONE CAMPIONATO</h3>
+            <p><strong>ATTENZIONE:</strong> Questa sezione deve essere modificata quando si duplica questa pagina per un nuovo campionato.</p>
+            
+            <div class="config-section">
+                <h4>1. INFORMAZIONI CAMPIONATO</h4>
+                <p><strong>Nome Torneo:</strong> Campionato A1 C.T.P. 2024-2025</p>
+                <p><strong>Numero Giocatori:</strong> 20</p>
+                <p><strong>Tipo Torneo:</strong> All Play All (Girone unico)</p>
+            </div>
+            
+            <div class="config-section">
+                <h4>2. ELENCO GIOCATORI</h4>
+                <div class="player-list" id="config-player-list">
+                    <!-- Lista giocatori generata da JavaScript -->
+                </div>
+            </div>
+            
+            <div class="config-section">
+                <h4>3. CONFIGURAZIONE GOOGLE SHEET</h4>
+                <p><strong>Google Sheet ID:</strong> <code id="config-sheet-id"></code></p>
+                <p><strong>Nome Foglio:</strong> <code id="config-sheet-name"></code></p>
+                <p><strong>Google Form URL:</strong> <a id="config-form-url" href="#" target="_blank">Link al form</a></p>
+            </div>
+        </div>
+        <!-- =========================================== -->
+        <!-- FINE ZONA CONFIGURAZIONE -->
+        <!-- =========================================== -->
+        
+        <!-- Header -->
+        <div class="header">
+            <div class="tournament-title">
+                <h1>Campionato A1 C.T.P. 2025-2026</h1>
+            </div>
+            
+            <div class="player-list" id="header-player-list" style="display: none">
+                <!-- Lista giocatori generata da JavaScript -->
+            </div>
+            
+            <div class="status-bar">
+                <div>
+                    <span id="data-status">Caricamento dati...</span>
+                    <span class="last-update" id="last-update"></span>
+                </div>
+                <button id="refresh-data" class="mdl-button mdl-js-button mdl-button--icon refresh-button" title="Aggiorna dati">
+                    <i class="material-icons">refresh</i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Istruzioni per Google Form -->
+        <div class="instructions">
+            <!--<h3><i class="material-icons">info</i> COME INSERIRE I RISULTATI</h3>-->
+            <div class="instruction-steps">
+                <div class="instruction-step">
+                    <h4><span class="step-number">1</span> Inserisci risultato partita</h4>
+                    
+                  <a id="google-form-link" href="#" target="_blank" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                  <i class="material-icons">edit</i>Fai clic e invia il risultato della partita</a>
+					
+
+              </div>
+                <div class="instruction-step">
+                    <h4><span class="step-number">2</span> Controlla risultato e classifica</h4>
+                    <p>Torna su questa pagina per controllare.<br>
+                    Risultati e classifica si aggiornano automaticamente ogni 60 secondi. </p>
+                </div>
+                <div class="instruction-step">
+                    <h4><span class="step-number">3</span> &nbsp;Gestione errori&nbsp;</h4>
+                    
+                    <p>Hai fatto un errore? <br>
+                    Nessun problema, reinserisci il risultato della partita. <br>
+                    Il sistema prenderà per valido l'ultimo risultato inserito.&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>
+					<p>Segnala altri problemi al responsabile delle classifiche nel gruppo Whatsapp.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Informazioni Google Sheets -->
+        <div class="sheets-info" style="display: none">
+            <h3><i class="material-icons">table_chart</i> DATI IN TEMPO REALE DA GOOGLE SHEETS</h3>
+            <p>Tutti i risultati vengono salvati in un Google Sheet centrale. Questa pagina legge automaticamente i dati e calcola la classifica in tempo reale.</p>
+            <p><strong>Foglio dati:</strong> <a id="google-sheet-link" href="#" target="_blank">Visualizza Google Sheet</a></p>
+            <p><strong>Ultimo aggiornamento:</strong> <span id="sheet-last-update">Caricamento...</span></p>
+            <p><strong>Partite totali:</strong> <span id="total-matches">0</span></p>
+            <p><strong>Giocatori attivi:</strong> <span id="active-players">0</span></p>
+        </div>
+        
+        <!-- Sezione Esportazione Dati -->
+        <div class="export-section"  style="display: none">
+            <h4><i class="material-icons">download</i> ESPORTAZIONE DATI</h4>
+            <p>Per duplicare questo campionato e crearne uno nuovo (es. A2):</p>
+            <ol>
+                <li>Crea una copia del Google Sheet esistente</li>
+                <li>Crea un nuovo Google Form collegato al nuovo Sheet</li>
+                <li>Modifica i link nella sezione CONFIGURAZIONE qui sopra</li>
+                <li>Salva questa pagina come nuovo file HTML con nome diverso (es. A2.html)</li>
+            </ol>
+            <button id="export-stats" class="mdl-button mdl-js-button mdl-button--raised">
+                <i class="material-icons">file_download</i> Esporta Statistiche (JSON)
+            </button>
+        </div>
+        
+        <!-- Tabs per le diverse tabelle -->
+        <div class="card">
+            <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+                <div class="mdl-tabs__tab-bar">
+                    <a href="#results-panel" class="mdl-tabs__tab is-active">Tabella Risultati</a> | 
+                    <a href="#standings-panel" class="mdl-tabs__tab">Classifica</a> |
+                    <a href="#history-panel" class="mdl-tabs__tab">Cronologia Partite</a> |
+                    <a href="#stats-panel" class="mdl-tabs__tab">Statistiche</a>
+                </div>
+                
+                <!-- Tabella Risultati -->
+                <div class="mdl-tabs__panel is-active" id="results-panel">
+                    <h3>Tabella Risultati</h3>
+                    <div class="info-box">
+                        <p><strong>Tip:</strong> Passa il mouse su un risultato per vedere giocatori e data/ora della partita</p>
+                    </div>
+                    <div class="table-container">
+                        <table class="results-table" id="results-table">
+                            <!-- Table will be generated by JavaScript -->
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Tabella Classifica -->
+                <div class="mdl-tabs__panel" id="standings-panel">
+                    <h3>Classifica Generale</h3>
+                    <p>Punti: Vittoria = 2, Pareggio = 1, Sconfitta = 0</p>
+                    <div class="info-box">
+                        <p><strong>Criteri di ordinamento:</strong> 1) Punti → 2) Scontri diretti → 3) Differenza games → 4) Games vinti</p>
+                    </div>
+                    <div class="table-container">
+                        <table class="standings-table" id="standings-table">
+                            <thead>
+                                <tr>
+                                    <th>Pos</th>
+                                    <th class="player-column">Giocatore</th>
+                                    <th>Punti</th>
+                                    <th>PG</th>
+                                    <th>V</th>
+                                    <th>P</th>
+                                    <th>N</th>
+                                    <th>GV</th>
+                                    <th>GP</th>
+                                    <th>Diff</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Table rows will be generated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Tabella Cronologia -->
+                <div class="mdl-tabs__panel" id="history-panel">
+                    <h3>Cronologia Partite</h3>
+                    <p>Ultimi risultati inseriti dal Google Form.</p>
+                    <div class="info-box">
+                        <!-- MODIFICATO: testo del formato data -->
+                        <p><strong>Formato data/ora:</strong> gg/mm/aaaa ore hh:mm (es. 25/03/2026 ore 10:15)</p>
+                    </div>
+                    <div class="table-container">
+                        <table class="history-table" id="history-table">
+                            <thead>
+                                <tr>
+                                    <th>Partita</th>
+                                    <th>Risultato</th>
+                                    <th>Data Inserimento</th>
+                                    <th>Vincitore</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Table rows will be generated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Tabella Statistiche -->
+                <div class="mdl-tabs__panel" id="stats-panel">
+                    <h3>Statistiche del Torneo</h3>
+                    <div class="info-box">
+                        <p><strong>Statistiche generali del campionato A1</strong></p>
+                    </div>
+                    <div id="stats-container">
+                        <!-- Statistiche saranno generate da JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Loading indicator -->
+        <div id="loading" class="loading" style="display: none;">
+            <div class="loading-spinner"></div>
+            <p>Caricamento dati da Google Sheets...</p>
+        </div>
+        
+        <!-- Template Notice -->
+        <div class="config-notice">
+            <h3><i class="material-icons">content_copy</i> ISTRUZIONI PER DUPLICAZIONE</h3>
+            <p>Per creare un nuovo campionato (es. A2) con altri giocatori:</p>
+            <ol>
+                <li><strong>Modifica la sezione CONFIGURAZIONE</strong> nelle prime righe del file JavaScript</li>
+                <li><strong>Cambia l'array PLAYERS</strong> con i nuovi nomi dei giocatori</li>
+                <li><strong>Aggiorna i link</strong> del Google Sheet e Google Form</li>
+                <li><strong>Salva con un nuovo nome</strong> (es. A2.html) e carica sul tuo hosting</li>
+            </ol>
+            <p><strong>Nota:</strong> Il codice è strutturato per essere facilmente modificabile. Tutte le impostazioni sono in una sezione ben evidenziata.</p>
+        </div>
+    </div>
+
+    <script>
+        // ===========================================
+        // CONFIGURAZIONE CAMPIONATO A1
+        // MODIFICARE QUESTA SEZIONE PER CREARE UN NUOVO CAMPIONATO
+        // ===========================================
+        
+        const CONFIG = {
+            // Nome del torneo (visualizzato in pagina)
+            TOURNAMENT_NAME: "Campionato A1 C.T.P. 2025-2026",
+            
+            // Sostituisci con l'ID del tuo Google Sheet
+            GOOGLE_SHEET_ID: '1wYsLMFmrSQQoBsKeGdN19DTTayYCT_PS1pbi1Zgpz20',
+            
+            // Nome del foglio all'interno del Google Sheet
+            SHEET_NAME: 'Risposte del modulo 1',
+            
+            // Link al tuo Google Form
+            GOOGLE_FORM_URL: 'https://forms.gle/ufxoD7tnpYPnSL347',
+            
+            // Link per visualizzare il Google Sheet
+            GOOGLE_SHEET_URL: 'https://docs.google.com/spreadsheets/d/1wYsLMFmrSQQoBsKeGdN19DTTayYCT_PS1pbi1Zgpz20/edit?usp=sharing',
+            
+            // Intervallo di aggiornamento (60 secondi)
+            REFRESH_INTERVAL: 60000,
+            
+            // API Key (opzionale - per più richieste)
+            API_KEY: '',
+            
+            // ===========================================
+            // ELENCO GIOCATORI - DA MODIFICARE PER OGNI NUOVO CAMPIONATO
+            // ===========================================
+            PLAYERS: [
+                'Arcudi',
+                'Barbiani',
+                'Bardari',
+                'Carelli',
+                'Casalaz',
+                'Cervazzi',
+                "D'acunto",
+                'De Mitri',
+                /*'De Francesco',*/
+                'Lodi',
+                'Mandirola',
+                'Marsi',
+                'Molinari',
+                'Pataccoli',
+                'Piselli',
+                'Rinaldi',
+                'Santinello',
+                'Scrigner',
+                'Tigelli',
+                'Zucca'
+            ]
+            // ===========================================
+            // FINE CONFIGURAZIONE GIOCATORI
+            // ===========================================
+        };
+        
+        // ===========================================
+        // FINE ZONA CONFIGURAZIONE
+        // NON MODIFICARE OLTRE QUESTO PUNTO
+        // ===========================================
+        
+        // Struttura dati dell'applicazione
+        let players = [...CONFIG.PLAYERS];
+        let matches = [];
+        let resultsMatrix = {};
+        let lastUpdate = null;
+        let refreshInterval = null;
+        
+        // Inizializzazione
+        document.addEventListener('DOMContentLoaded', function() {
+            // Aggiorna le informazioni di configurazione nella pagina
+            updateConfigDisplay();
+            
+            // Imposta i link
+            document.getElementById('google-form-link').href = CONFIG.GOOGLE_FORM_URL;
+            document.getElementById('google-sheet-link').href = CONFIG.GOOGLE_SHEET_URL;
+            
+            // Imposta il titolo del torneo
+            document.title = CONFIG.TOURNAMENT_NAME;
+            document.querySelector('.tournament-title h1').textContent = CONFIG.TOURNAMENT_NAME;
+            
+            // Mostra lista giocatori in header
+            displayPlayerList();
+            
+            // Imposta event listeners
+            document.getElementById('refresh-data').addEventListener('click', loadDataFromGoogleSheets);
+            document.getElementById('export-stats').addEventListener('click', exportTournamentStats);
+            
+            // Carica i dati iniziali
+            loadDataFromGoogleSheets();
+            
+            // Avvia l'aggiornamento automatico
+            startAutoRefresh();
+        });
+        
+        // Aggiorna la visualizzazione della configurazione
+        function updateConfigDisplay() {
+            document.getElementById('config-sheet-id').textContent = CONFIG.GOOGLE_SHEET_ID;
+            document.getElementById('config-sheet-name').textContent = CONFIG.SHEET_NAME;
+            document.getElementById('config-form-url').href = CONFIG.GOOGLE_FORM_URL;
+            document.getElementById('config-form-url').textContent = CONFIG.GOOGLE_FORM_URL;
+            
+            // Mostra lista giocatori nella zona configurazione
+            const configPlayerList = document.getElementById('config-player-list');
+            configPlayerList.innerHTML = '';
+            
+            CONFIG.PLAYERS.forEach(player => {
+                const playerTag = document.createElement('div');
+                playerTag.className = 'player-tag';
+                playerTag.textContent = player;
+                configPlayerList.appendChild(playerTag);
+            });
+        }
+        
+        // Mostra lista giocatori in header
+        function displayPlayerList() {
+            const headerPlayerList = document.getElementById('header-player-list');
+            headerPlayerList.innerHTML = '';
+            
+            players.forEach(player => {
+                const playerTag = document.createElement('div');
+                playerTag.className = 'player-tag';
+                playerTag.textContent = player;
+                headerPlayerList.appendChild(playerTag);
+            });
+        }
+        
+        // Carica dati da Google Sheets
+        async function loadDataFromGoogleSheets() {
+            showLoading(true);
+            updateStatus('Caricamento dati da Google Sheets...');
+            
+            try {
+                // Costruisci l'URL per l'API di Google Sheets
+                let url = `https://docs.google.com/spreadsheets/d/${CONFIG.GOOGLE_SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(CONFIG.SHEET_NAME)}`;
+                
+                if (CONFIG.API_KEY) {
+                    url += `&key=${CONFIG.API_KEY}`;
+                }
+                
+                // Aggiungi timestamp per evitare cache
+                url += `&t=${Date.now()}`;
+                
+                const response = await fetch(url);
+                const text = await response.text();
+                
+                // Google Sheets restituisce i dati in un formato particolare
+                const jsonText = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
+                const data = JSON.parse(jsonText);
+                
+                // Estrai i dati
+                processGoogleSheetsData(data);
+                
+                // Aggiorna le tabelle
+                updateAllTables();
+                
+                // Aggiorna lo stato
+                updateStatus('Dati caricati con successo');
+                showLoading(false);
+                
+                // Salva l'ultimo aggiornamento
+                lastUpdate = new Date();
+                updateLastUpdateDisplay();
+                
+            } catch (error) {
+                console.error('Errore nel caricamento dati:', error);
+                updateStatus(`Errore: ${error.message}`);
+                showLoading(false);
+                
+                // Mostra dati di esempio in caso di errore
+                useSampleData();
+            }
+        }
+        
+        // Processa i dati da Google Sheets
+        function processGoogleSheetsData(data) {
+            // Resetta i dati
+            matches = [];
+            
+            // Estrai i nomi delle colonne
+            const columns = data.table.cols.map(col => col.label || '');
+            
+            // Trova gli indici delle colonne importanti
+            const timestampIndex = columns.findIndex(col => 
+                col && (col.includes('Timestamp') || col.includes('Ora') || col.includes('Data'))
+            );
+            
+            const player1Index = columns.findIndex(col => 
+                col && (col.includes('Giocatore 1') || col.toLowerCase().includes('giocatore1'))
+            );
+            
+            const score1Index = columns.findIndex(col => 
+                col && (col.includes('Punteggio Giocatore 1') || col.includes('Punteggio 1') || 
+                       col.includes('Games Giocatore 1') || col.includes('Games 1'))
+            );
+            
+            const player2Index = columns.findIndex(col => 
+                col && (col.includes('Giocatore 2') || col.toLowerCase().includes('giocatore2'))
+            );
+            
+            const score2Index = columns.findIndex(col => 
+                col && (col.includes('Punteggio Giocatore 2') || col.includes('Punteggio 2') || 
+                       col.includes('Games Giocatore 2') || col.includes('Games 2'))
+            );
+            
+            // Se non troviamo le colonne con i nomi precisi, proviamo con gli indici di default
+            const finalIndices = {
+                timestamp: timestampIndex !== -1 ? timestampIndex : 0,
+                player1: player1Index !== -1 ? player1Index : 1,
+                score1: score1Index !== -1 ? score1Index : 2,
+                player2: player2Index !== -1 ? player2Index : 3,
+                score2: score2Index !== -1 ? score2Index : 4
+            };
+            
+            // Estrai i dati dalle righe (saltando eventuale intestazione)
+            data.table.rows.forEach((row, index) => {
+                // Salta la prima riga se contiene intestazioni
+                if (index === 0 && row.c[0] && 
+                   (row.c[0].v === 'Timestamp' || row.c[0].v === 'Ora' || row.c[0].v === 'Data')) {
+                    console.log('Salto riga intestazione');
+                    return;
+                }
+                
+                const player1 = getCellValue(row.c[finalIndices.player1]);
+                const player2 = getCellValue(row.c[finalIndices.player2]);
+                const score1 = parseScore(getCellValue(row.c[finalIndices.score1]));
+                const score2 = parseScore(getCellValue(row.c[finalIndices.score2]));
+                const timestamp = getCellValue(row.c[finalIndices.timestamp]);
+                
+                // Validazione dei dati
+                if (!player1 || !player2 || isNaN(score1) || isNaN(score2)) {
+                    console.log(`Riga ${index} scartata per dati mancanti o invalidi`);
+                    return;
+                }
+                
+                // Normalizza i nomi dei giocatori
+                const normalizedPlayer1 = normalizePlayerName(player1);
+                const normalizedPlayer2 = normalizePlayerName(player2);
+                
+                // Verifica che i giocatori siano nella lista configurata
+                if (!players.includes(normalizedPlayer1)) {
+                    console.warn(`Giocatore ${normalizedPlayer1} non presente nella lista configurata`);
+                    return;
+                }
+                
+                if (!players.includes(normalizedPlayer2)) {
+                    console.warn(`Giocatore ${normalizedPlayer2} non presente nella lista configurata`);
+                    return;
+                }
+                
+                // --- MODIFICA: utilizzo di parseDate per ottenere un timestamp valido ---
+                const dateObj = parseDate(timestamp);
+                const formattedDateTime = formatDateTime(timestamp);
+                const timestampNum = isNaN(dateObj.getTime()) ? Date.now() : dateObj.getTime();
+                
+                // Crea l'oggetto partita
+                const match = {
+                    player1: normalizedPlayer1,
+                    player2: normalizedPlayer2,
+                    score1: score1,
+                    score2: score2,
+                    date: formattedDateTime,
+                    timestamp: timestampNum,
+                    id: `gsheet_${index}_${Date.now()}`
+                };
+                
+                matches.push(match);
+            });
+            
+            console.log(`Processate ${matches.length} partite valide`);
+            
+            // Aggiorna i contatori
+            updateCounters();
+        }
+        
+        // Formatta data/ora come "gg/mm/aaaa ore hh:mm" gestendo vari formati
+        function formatDateTime(timestamp) {
+            let date;
+            
+            if (timestamp === null || timestamp === undefined) {
+                date = new Date();
+            } else if (typeof timestamp === 'number') {
+                date = new Date(timestamp);
+            } else if (typeof timestamp === 'string') {
+                // Prova a parsare la stringa Date(anno, mese, giorno, ora, minuto, secondo)
+                const match = timestamp.match(/Date\((\d+),(\d+),(\d+),(\d+),(\d+),(\d+)\)/);
+                if (match) {
+                    const [_, year, month, day, hour, minute, second] = match.map(Number);
+                    // Il mese in questa stringa è 0-based (gennaio=0)
+                    date = new Date(year, month, day, hour, minute, second);
+                } else {
+                    date = new Date(timestamp);
+                }
+            } else if (typeof timestamp === 'object' && timestamp !== null) {
+                if (timestamp.year !== undefined && timestamp.month !== undefined && timestamp.day !== undefined) {
+                    let monthIndex = timestamp.month;
+                    if (monthIndex > 0 && monthIndex <= 12) {
+                        monthIndex = monthIndex - 1; // converti 1-based a 0-based
+                    }
+                    date = new Date(
+                        timestamp.year,
+                        monthIndex,
+                        timestamp.day,
+                        timestamp.hour || 0,
+                        timestamp.minute || 0,
+                        timestamp.second || 0
+                    );
+                } else {
+                    date = new Date(timestamp);
+                }
+            } else {
+                date = new Date(timestamp);
+            }
+            
+            if (isNaN(date.getTime())) {
+                return String(timestamp);
+            }
+            
+            return `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth()+1).toString().padStart(2, '0')}/${date.getFullYear()} ore ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+        }
+
+        // Nuova funzione per parsare il timestamp in un oggetto Date valido
+        function parseDate(timestamp) {
+            let date;
+            if (timestamp === null || timestamp === undefined) {
+                date = new Date();
+            } else if (typeof timestamp === 'number') {
+                date = new Date(timestamp);
+            } else if (typeof timestamp === 'string') {
+                const match = timestamp.match(/Date\((\d+),(\d+),(\d+),(\d+),(\d+),(\d+)\)/);
+                if (match) {
+                    const [_, year, month, day, hour, minute, second] = match.map(Number);
+                    date = new Date(year, month, day, hour, minute, second);
+                } else {
+                    date = new Date(timestamp);
+                }
+            } else if (typeof timestamp === 'object' && timestamp !== null) {
+                if (timestamp.year !== undefined && timestamp.month !== undefined && timestamp.day !== undefined) {
+                    let monthIndex = timestamp.month;
+                    if (monthIndex > 0 && monthIndex <= 12) {
+                        monthIndex = monthIndex - 1;
+                    }
+                    date = new Date(
+                        timestamp.year,
+                        monthIndex,
+                        timestamp.day,
+                        timestamp.hour || 0,
+                        timestamp.minute || 0,
+                        timestamp.second || 0
+                    );
+                } else {
+                    date = new Date(timestamp);
+                }
+            } else {
+                date = new Date(timestamp);
+            }
+            return date;
+        }
+        
+        // Normalizza il nome del giocatore
+        function normalizePlayerName(name) {
+            if (!name) return '';
+            
+            const trimmed = name.toString().trim();
+            
+            const normalized = players.find(player => 
+                player.toLowerCase() === trimmed.toLowerCase()
+            );
+            
+            return normalized || trimmed;
+        }
+        
+        // Helper per estrarre il valore da una cella
+        function getCellValue(cell) {
+            if (!cell) return '';
+            return cell.v !== undefined ? cell.v : cell.f || '';
+        }
+        
+        // Helper per parsare il punteggio
+        function parseScore(score) {
+            if (typeof score === 'number') return Math.max(0, Math.min(100, score));
+            if (typeof score === 'string') {
+                const parsed = parseInt(score.trim().replace(',', '.'));
+                return isNaN(parsed) ? 0 : Math.max(0, Math.min(100, parsed));
+            }
+            return 0;
+        }
+        
+        // Usa dati di esempio in caso di errore
+        function useSampleData() {
+            console.log('Usando dati di esempio...');
+            
+            const sampleMatches = [];
+            const now = Date.now();
+            
+            for (let i = 0; i < 15; i++) {
+                const player1Index = Math.floor(Math.random() * players.length);
+                let player2Index;
+                do {
+                    player2Index = Math.floor(Math.random() * players.length);
+                } while (player2Index === player1Index);
+                
+                const score1 = Math.floor(Math.random() * 10) + 1;
+                const score2 = Math.floor(Math.random() * 10) + 1;
+                
+                const daysAgo = Math.floor(Math.random() * 30);
+                const matchDate = new Date(now - daysAgo * 24 * 60 * 60 * 1000);
+                
+                const formattedDateTime = `${matchDate.getDate().toString().padStart(2, '0')}/${(matchDate.getMonth()+1).toString().padStart(2, '0')}/${matchDate.getFullYear()} ore ${matchDate.getHours().toString().padStart(2, '0')}:${matchDate.getMinutes().toString().padStart(2, '0')}`;
+                
+                sampleMatches.push({
+                    player1: players[player1Index],
+                    player2: players[player2Index],
+                    score1: score1,
+                    score2: score2,
+                    date: formattedDateTime,
+                    timestamp: matchDate.getTime(),
+                    id: `sample_${i}`
+                });
+            }
+            
+            matches = sampleMatches;
+            
+            updateCounters();
+            updateAllTables();
+            updateStatus('Dati di esempio caricati (Google Sheet non disponibile)');
+        }
+        
+        // Aggiorna i contatori
+        function updateCounters() {
+            document.getElementById('total-matches').textContent = matches.length;
+            document.getElementById('sheet-last-update').textContent = new Date().toLocaleTimeString('it-IT');
+            
+            const activePlayersSet = new Set();
+            matches.forEach(match => {
+                activePlayersSet.add(match.player1);
+                activePlayersSet.add(match.player2);
+            });
+            document.getElementById('active-players').textContent = `${activePlayersSet.size} / ${players.length}`;
+        }
+        
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'block' : 'none';
+        }
+        
+        function updateStatus(message) {
+            document.getElementById('data-status').textContent = message;
+        }
+        
+        function updateLastUpdateDisplay() {
+            const lastUpdateElement = document.getElementById('last-update');
+            if (lastUpdate) {
+                const date = new Date(lastUpdate);
+                const formatted = `Ultimo aggiornamento: ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+                lastUpdateElement.textContent = formatted;
+            } else {
+                lastUpdateElement.textContent = '';
+            }
+        }
+        
+        function startAutoRefresh() {
+            if (refreshInterval) {
+                clearInterval(refreshInterval);
+            }
+            refreshInterval = setInterval(() => {
+                loadDataFromGoogleSheets();
+            }, CONFIG.REFRESH_INTERVAL);
+        }
+        
+        function initializeResultsMatrix() {
+            resultsMatrix = {};
+            players.forEach(player1 => {
+                resultsMatrix[player1] = {};
+                players.forEach(player2 => {
+                    resultsMatrix[player1][player2] = null;
+                });
+            });
+        }
+        
+        function updateResultsMatrix() {
+            initializeResultsMatrix();
+            matches.forEach(match => {
+                resultsMatrix[match.player1][match.player2] = { 
+                    score1: match.score1, 
+                    score2: match.score2,
+                    date: match.date
+                };
+                resultsMatrix[match.player2][match.player1] = { 
+                    score1: match.score2, 
+                    score2: match.score1,
+                    date: match.date
+                };
+            });
+        }
+        
+        // Calcola le dimensioni ottimali per le intestazioni (con font aumentato)
+        function calculateOptimalHeaderDimensions() {
+            let maxLength = 0;
+            let longestName = '';
+            players.forEach(player => {
+                if (player.length > maxLength) {
+                    maxLength = player.length;
+                    longestName = player;
+                }
+            });
+            
+            console.log(`Nome più lungo: ${longestName} (${maxLength} caratteri)`);
+            
+            const verticalFontSize = 14; // aumentato da 13
+            const charWidth = 7;
+            const paddingVertical = 6; // leggermente aumentato per il nuovo padding
+            const paddingHorizontal = 6;
+            
+            const verticalHeight = (maxLength * verticalFontSize) + paddingVertical + 6;
+            const horizontalWidth = (maxLength * charWidth) + paddingHorizontal + 12;
+            
+            return {
+                verticalHeight: Math.max(80, Math.min(200, verticalHeight)),
+                horizontalWidth: Math.max(70, Math.min(150, horizontalWidth))
+            };
+        }
+        
+        function updateAllTables() {
+            updateResultsMatrix();
+            updateResultsTable();
+            updateStandingsTable();
+            updateHistoryTable();
+            updateStatsPanel();
+        }
+        
+        function updateResultsTable() {
+            const table = document.getElementById('results-table');
+            table.innerHTML = '';
+            
+            const dims = calculateOptimalHeaderDimensions();
+            
+            const thead = document.createElement('thead');
+            const headerRow = document.createElement('tr');
+            
+            const emptyHeader = document.createElement('th');
+            emptyHeader.className = 'corner-cell';
+            headerRow.appendChild(emptyHeader);
+            
+            players.forEach(player => {
+                const th = document.createElement('th');
+                th.className = 'vertical-header';
+                th.textContent = player;
+                th.title = player;
+                th.style.height = dims.verticalHeight + 'px';
+                th.style.minHeight = dims.verticalHeight + 'px';
+                th.style.maxHeight = dims.verticalHeight + 'px';
+                headerRow.appendChild(th);
+            });
+            
+            thead.appendChild(headerRow);
+            table.appendChild(thead);
+            
+            const tbody = document.createElement('tbody');
+            
+            players.forEach(player1 => {
+                const row = document.createElement('tr');
+                
+                const rowHeader = document.createElement('th');
+                rowHeader.className = 'horizontal-header';
+                rowHeader.textContent = player1;
+                rowHeader.style.width = dims.horizontalWidth + 'px';
+                rowHeader.style.minWidth = dims.horizontalWidth + 'px';
+                rowHeader.style.maxWidth = dims.horizontalWidth + 'px';
+                row.appendChild(rowHeader);
+                
+                players.forEach(player2 => {
+                    const cell = document.createElement('td');
+                    
+                    if (player1 === player2) {
+                        cell.className = 'diagonal-cell';
+                        cell.textContent = 'X';
+                    } else {
+                        const result = resultsMatrix[player1][player2];
+                        if (result !== null) {
+                            cell.className = 'match-cell';
+                            cell.textContent = `${result.score1}-${result.score2}`;
+                            cell.dataset.player1 = player1;
+                            cell.dataset.player2 = player2;
+                            
+                            if (result.date) {
+                                cell.title = `${player1} ${result.score1} - ${result.score2} ${player2}\n${result.date}`;
+                            }
+                        } else {
+                            cell.className = 'empty-cell';
+                            cell.textContent = '';
+                        }
+                    }
+                    
+                    cell.addEventListener('mouseover', function() {
+                        highlightRowAndColumn(player1, player2);
+                    });
+                    
+                    cell.addEventListener('mouseout', function() {
+                        removeHighlights();
+                    });
+                    
+                    row.appendChild(cell);
+                });
+                
+                tbody.appendChild(row);
+            });
+            
+            table.appendChild(tbody);
+        }
+        
+        function highlightRowAndColumn(player1, player2) {
+            removeHighlights();
+            
+            const table = document.getElementById('results-table');
+            const rows = table.getElementsByTagName('tr');
+            const player1Index = players.indexOf(player1) + 1;
+            const player2Index = players.indexOf(player2) + 1;
+            
+            if (rows[player1Index]) {
+                const cells = rows[player1Index].getElementsByTagName('td');
+                for (let i = 0; i < player2Index; i++) {
+                    if (cells[i]) cells[i].classList.add('highlight-row');
+                }
+            }
+            
+            for (let i = 1; i <= player1Index; i++) {
+                if (rows[i] && rows[i].getElementsByTagName('td')[player2Index - 1]) {
+                    rows[i].getElementsByTagName('td')[player2Index - 1].classList.add('highlight-col');
+                }
+            }
+        }
+        
+        function removeHighlights() {
+            const table = document.getElementById('results-table');
+            const highlightedCells = table.getElementsByClassName('highlight-row');
+            while (highlightedCells.length > 0) {
+                highlightedCells[0].classList.remove('highlight-row');
+            }
+            const highlightedCols = table.getElementsByClassName('highlight-col');
+            while (highlightedCols.length > 0) {
+                highlightedCols[0].classList.remove('highlight-col');
+            }
+        }
+        
+        function calculateStandings() {
+            const standings = {};
+            players.forEach(player => {
+                standings[player] = {
+                    points: 0,
+                    matchesPlayed: 0,
+                    matchesWon: 0,
+                    matchesLost: 0,
+                    matchesDrawn: 0,
+                    gamesWon: 0,
+                    gamesLost: 0,
+                    directMatches: {}
+                };
+            });
+            
+            matches.forEach(match => {
+                const p1 = match.player1, p2 = match.player2;
+                const s1 = match.score1, s2 = match.score2;
+                
+                standings[p1].matchesPlayed++;
+                standings[p1].gamesWon += s1;
+                standings[p1].gamesLost += s2;
+                
+                standings[p2].matchesPlayed++;
+                standings[p2].gamesWon += s2;
+                standings[p2].gamesLost += s1;
+                
+                standings[p1].directMatches[p2] = s1 > s2 ? 'win' : s1 < s2 ? 'loss' : 'draw';
+                standings[p2].directMatches[p1] = s2 > s1 ? 'win' : s2 < s1 ? 'loss' : 'draw';
+                
+                if (s1 > s2) {
+                    standings[p1].matchesWon++;
+                    standings[p1].points += 2;
+                    standings[p2].matchesLost++;
+                } else if (s2 > s1) {
+                    standings[p2].matchesWon++;
+                    standings[p2].points += 2;
+                    standings[p1].matchesLost++;
+                } else {
+                    standings[p1].matchesDrawn++;
+                    standings[p1].points += 1;
+                    standings[p2].matchesDrawn++;
+                    standings[p2].points += 1;
+                }
+            });
+            
+            return standings;
+        }
+        
+        function comparePlayers(a, b, standings) {
+            if (b.points !== a.points) return b.points - a.points;
+            
+            const directResult = standings[a.player].directMatches[b.player];
+            if (directResult === 'win') return -1;
+            if (directResult === 'loss') return 1;
+            
+            const diffA = a.gamesWon - a.gamesLost;
+            const diffB = b.gamesWon - b.gamesLost;
+            if (diffB !== diffA) return diffB - diffA;
+            
+            if (b.gamesWon !== a.gamesWon) return b.gamesWon - a.gamesWon;
+            
+            if (a.gamesLost !== b.gamesLost) return a.gamesLost - b.gamesLost;
+            
+            return 0;
+        }
+        
+        function sortStandings(standings) {
+            return Object.keys(standings).map(p => ({player: p, ...standings[p]}))
+                .sort((a, b) => comparePlayers(a, b, standings));
+        }
+        
+        function updateStandingsTable() {
+            const standings = calculateStandings();
+            const sorted = sortStandings(standings);
+            
+            const tbody = document.getElementById('standings-table').getElementsByTagName('tbody')[0];
+            tbody.innerHTML = '';
+            
+            let maxWon = 0, minWon = Infinity, maxLost = 0, minLost = Infinity;
+            sorted.forEach(s => {
+                if (s.gamesWon > maxWon) maxWon = s.gamesWon;
+                if (s.gamesWon < minWon && s.gamesWon > 0) minWon = s.gamesWon;
+                if (s.gamesLost > maxLost) maxLost = s.gamesLost;
+                if (s.gamesLost < minLost && s.gamesLost > 0) minLost = s.gamesLost;
+            });
+            
+            sorted.forEach((s, idx) => {
+                const row = document.createElement('tr');
+                
+                let posClass = '';
+                if (idx < 3) posClass = `position-${idx+1}`;
+                else if (idx >= sorted.length-4) posClass = `position-last-${sorted.length-idx}`;
+                else if (idx === sorted.length-5 || idx === sorted.length-6) posClass = `position-last-${sorted.length-idx}`;
+                
+                const posCell = document.createElement('td');
+                posCell.className = `position-cell ${posClass}`;
+                posCell.textContent = `${idx+1}°`;
+                row.appendChild(posCell);
+                
+                const nameCell = document.createElement('td');
+                nameCell.className = 'player-column';
+                nameCell.textContent = s.player;
+                row.appendChild(nameCell);
+                
+                const cells = [
+                    s.points,
+                    s.matchesPlayed,
+                    s.matchesWon,
+                    s.matchesLost,
+                    s.matchesDrawn,
+                    s.gamesWon,
+                    s.gamesLost,
+                    s.gamesWon - s.gamesLost
+                ];
+                cells.forEach((val, i) => {
+                    const td = document.createElement('td');
+                    if (i === 5) { // gamesWon
+                        if (s.gamesWon === maxWon && s.gamesWon > 0) td.className = 'games-won-high';
+                        else if (s.gamesWon === minWon && s.gamesWon > 0) td.className = 'games-won-low';
+                        td.textContent = val;
+                    } else if (i === 6) { // gamesLost
+                        if (s.gamesLost === maxLost && s.gamesLost > 0) td.className = 'games-lost-high';
+                        else if (s.gamesLost === minLost && s.gamesLost > 0) td.className = 'games-lost-low';
+                        td.textContent = val;
+                    } else if (i === 7) { // diff
+                        td.style.fontWeight = 'bold';
+                        td.style.color = val > 0 ? 'green' : val < 0 ? 'red' : 'black';
+                        td.textContent = val > 0 ? `+${val}` : val;
+                    } else {
+                        td.textContent = val;
+                    }
+                    row.appendChild(td);
+                });
+                
+                tbody.appendChild(row);
+            });
+        }
+        
+        function updateHistoryTable() {
+            const tbody = document.getElementById('history-table').getElementsByTagName('tbody')[0];
+            tbody.innerHTML = '';
+            
+            [...matches].sort((a,b) => b.timestamp - a.timestamp).forEach(m => {
+                const row = document.createElement('tr');
+                
+                const matchCell = document.createElement('td');
+                matchCell.textContent = `${m.player1} - ${m.player2}`;
+                row.appendChild(matchCell);
+                
+                const resultCell = document.createElement('td');
+                resultCell.textContent = `${m.score1} - ${m.score2}`;
+                row.appendChild(resultCell);
+                
+                const dateCell = document.createElement('td');
+                dateCell.textContent = m.date;
+                row.appendChild(dateCell);
+                
+                const winnerCell = document.createElement('td');
+                if (m.score1 > m.score2) {
+                    winnerCell.textContent = m.player1;
+                    winnerCell.style.color = 'green';
+                    winnerCell.style.fontWeight = 'bold';
+                } else if (m.score2 > m.score1) {
+                    winnerCell.textContent = m.player2;
+                    winnerCell.style.color = 'green';
+                    winnerCell.style.fontWeight = 'bold';
+                } else {
+                    winnerCell.textContent = 'Pareggio';
+                    winnerCell.style.color = 'orange';
+                }
+                row.appendChild(winnerCell);
+                
+                tbody.appendChild(row);
+            });
+        }
+        
+        function updateStatsPanel() {
+            const standings = calculateStandings();
+            const sorted = sortStandings(standings);
+            
+            const totalMatches = matches.length;
+            const totalGames = matches.reduce((s, m) => s + m.score1 + m.score2, 0);
+            const avgGames = totalMatches ? (totalGames/totalMatches).toFixed(2) : 0;
+            
+            let maxGamesMatch = null, maxGames = 0;
+            let closestMatch = null, closestDiff = Infinity;
+            const winsMargin = {'2-0':0,'2-1':0,'1-0':0, altro:0};
+            
+            matches.forEach(m => {
+                const tg = m.score1 + m.score2;
+                if (tg > maxGames) { maxGames = tg; maxGamesMatch = m; }
+                const diff = Math.abs(m.score1 - m.score2);
+                if (diff < closestDiff) { closestDiff = diff; closestMatch = m; }
+                
+                if (m.score1 === 2 && m.score2 === 0) winsMargin['2-0']++;
+                else if (m.score1 === 2 && m.score2 === 1) winsMargin['2-1']++;
+                else if (m.score1 === 1 && m.score2 === 0) winsMargin['1-0']++;
+                else if (m.score2 === 2 && m.score1 === 0) winsMargin['2-0']++;
+                else if (m.score2 === 2 && m.score1 === 1) winsMargin['2-1']++;
+                else if (m.score2 === 1 && m.score1 === 0) winsMargin['1-0']++;
+                else winsMargin['altro']++;
+            });
+            
+            document.getElementById('stats-container').innerHTML = `
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
+                    <div class="card">
+                        <h4>Statistiche Generali</h4>
+                        <p><strong>Partite giocate:</strong> ${totalMatches}</p>
+                        <p><strong>Games totali:</strong> ${totalGames}</p>
+                        <p><strong>Media games/partita:</strong> ${avgGames}</p>
+                        <p><strong>Giocatori attivi:</strong> ${new Set(matches.flatMap(m => [m.player1, m.player2])).size} / ${players.length}</p>
+                    </div>
+                    <div class="card">
+                        <h4>Record Partite</h4>
+                        ${maxGamesMatch ? `<p><strong>Partita con più games:</strong><br>${maxGamesMatch.player1} ${maxGamesMatch.score1}-${maxGamesMatch.score2} ${maxGamesMatch.player2}<br>(${maxGames} games totali)</p>` : '<p>Nessuna partita registrata</p>'}
+                        ${closestMatch ? `<p><strong>Partita più equilibrata:</strong><br>${closestMatch.player1} ${closestMatch.score1}-${closestMatch.score2} ${closestMatch.player2}<br>(differenza: ${closestDiff} games)</p>` : ''}
+                    </div>
+                    <div class="card">
+                        <h4>Distribuzione Risultati</h4>
+                        <p><strong>Vittorie 2-0:</strong> ${winsMargin['2-0']}</p>
+                        <p><strong>Vittorie 2-1:</strong> ${winsMargin['2-1']}</p>
+                        <p><strong>Vittorie 1-0:</strong> ${winsMargin['1-0']}</p>
+                        <p><strong>Altri risultati:</strong> ${winsMargin['altro']}</p>
+                        <p><strong>Pareggi:</strong> ${matches.filter(m => m.score1 === m.score2).length}</p>
+                    </div>
+                    <div class="card">
+                        <h4>Top 5 Giocatori</h4>
+                        <ol>${sorted.slice(0,5).map(p => `<li><strong>${p.player}</strong> - ${p.points} punti (${p.matchesWon}V ${p.matchesLost}P)</li>`).join('')}</ol>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function exportTournamentStats() {
+            const standings = calculateStandings();
+            const sorted = sortStandings(standings);
+            
+            const stats = {
+                tournament: CONFIG.TOURNAMENT_NAME,
+                exportDate: new Date().toISOString(),
+                totalMatches: matches.length,
+                totalPlayers: players.length,
+                activePlayers: new Set(matches.flatMap(m => [m.player1, m.player2])).size,
+                standings: sorted,
+                matches: matches,
+                config: {
+                    players: CONFIG.PLAYERS,
+                    sheetId: CONFIG.GOOGLE_SHEET_ID,
+                    sheetName: CONFIG.SHEET_NAME
+                }
+            };
+            
+            const dataStr = JSON.stringify(stats, null, 2);
+            const blob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `statistiche-${CONFIG.TOURNAMENT_NAME.replace(/\s+/g, '-').toLowerCase()}-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
