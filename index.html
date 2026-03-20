@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>C.T.P. - Campionati 2025-2026</title>
+    <!-- Material Design Lite -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-blue.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3f51b5;
+            --secondary-color: #ff4081;
+            --success-color: #4caf50;
+            --warning-color: #ff9800;
+            --info-color: #2196f3;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        .tournament-title {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+        
+        .tournament-title h1 {
+            color: white;
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        
+        .tournament-title p {
+            color: rgba(255,255,255,0.9);
+            margin: 15px 0 0;
+            font-size: 1.1em;
+        }
+        
+        /* Card sezioni */
+        .section-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .section-card h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 12px;
+            margin-top: 0;
+            margin-bottom: 24px;
+            font-size: 1.6em;
+        }
+        
+        /* Griglia categorie */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .category-card {
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border: 1px solid #e9ecef;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+            border-color: var(--primary-color);
+        }
+        
+        .category-icon {
+            width: 70px;
+            height: 70px;
+            background-color: rgba(63, 81, 181, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+        
+        .category-icon i {
+            font-size: 36px;
+            color: var(--primary-color);
+        }
+        
+        .category-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 8px 0;
+        }
+        
+        .category-subtitle {
+            font-size: 0.85em;
+            color: #6c757d;
+            margin-bottom: 12px;
+        }
+        
+        .category-status {
+            font-size: 0.8em;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 8px;
+        }
+        
+        /* Info box */
+        .info-box {
+            background-color: #e3f2fd;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--info-color);
+            margin-top: 20px;
+        }
+        
+        .info-box h3 {
+            color: var(--info-color);
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 1.2em;
+        }
+        
+        .info-box p {
+            margin: 8px 0;
+            color: #495057;
+            line-height: 1.5;
+        }
+        
+        .info-box a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .info-box a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #6c757d;
+            font-size: 0.85em;
+            border-top: 1px solid #dee2e6;
+            margin-top: 20px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+            
+            .tournament-title h1 {
+                font-size: 1.8em;
+            }
+            
+            .tournament-title p {
+                font-size: 0.9em;
+            }
+            
+            .section-card {
+                padding: 16px;
+            }
+            
+            .category-card {
+                padding: 16px;
+            }
+            
+            .category-title {
+                font-size: 1.5em;
+            }
+            
+            .categories-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 16px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Badge colori per categoria (opzionale) */
+        .category-A1 .category-icon { background-color: rgba(63, 81, 181, 0.15); }
+        .category-A2 .category-icon { background-color: rgba(33, 150, 243, 0.15); }
+        .category-B1 .category-icon { background-color: rgba(76, 175, 80, 0.15); }
+        .category-B2 .category-icon { background-color: rgba(156, 204, 101, 0.15); }
+        .category-B3 .category-icon { background-color: rgba(255, 152, 0, 0.15); }
+        .category-C1 .category-icon { background-color: rgba(255, 87, 34, 0.15); }
+        .category-C2 .category-icon { background-color: rgba(156, 39, 176, 0.15); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header principale -->
+        <div class="tournament-title">
+            <h1>C.T.P. - Campionati Sociali 2025-2026</h1>
+            <p>Classifiche e risultati in tempo reale</p>
+        </div>
+        
+        <!-- Sezione categorie -->
+        <div class="section-card">
+            <h2><i class="material-icons" style="font-size: 28px; vertical-align: middle;">sports_tennis</i> Scegli la tua categoria</h2>
+            <div class="categories-grid" id="categories-grid">
+                <!-- Le card verranno generate da JavaScript per mantenere i link facilmente modificabili -->
+            </div>
+        </div>
+        
+        <!-- Info su come funziona -->
+        <div class="info-box">
+            <h3><i class="material-icons">info</i> Come funziona</h3>
+            <p>📊 <strong>Classifiche in tempo reale</strong> – I risultati vengono aggiornati automaticamente dopo ogni inserimento.</p>
+            <p>✍️ <strong>Inserimento risultati</strong> – Clicca sul pulsante "Inserisci Risultato" nella pagina della tua categoria per comunicare il punteggio della partita.</p>
+            <p>🔄 <strong>Aggiornamento automatico</strong> – Le pagine si ricaricano ogni 60 secondi con i dati più recenti.</p>
+            <p>📱 <strong>Accesso da mobile</strong> – Le tabelle sono ottimizzate per essere consultate comodamente da smartphone.</p>
+            <p>❓ <strong>Hai sbagliato?</strong> – Nessun problema, reinserisci la stessa partita: il sistema terrà l'ultimo risultato inserito.</p>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>Circolo Tennis Puccini | Campionato 2025-2026</p>
+            <p>Classifiche alimentate da dati in tempo reale • Aggiornamento automatico ogni 60 secondi</p>
+        </div>
+    </div>
+
+    <script>
+        // Definizione delle 7 categorie con i relativi link
+        const categories = [
+            { 
+                name: "A1", 
+                title: "Categoria A1", 
+                url: "https://gipocei.github.io/tennis/A1-rev03.html",
+                icon: "emoji_events",
+                color: "A1"
+            },
+            { 
+                name: "A2", 
+                title: "Categoria A2", 
+                url: "https://gipocei.github.io/tennis/A2.html",
+                icon: "sports_tennis",
+                color: "A2"
+            },
+            { 
+                name: "B1", 
+                title: "Categoria B1", 
+                url: "https://gipocei.github.io/tennis/B1.html",
+                icon: "group",
+                color: "B1"
+            },
+            { 
+                name: "B2", 
+                title: "Categoria B2", 
+                url: "https://gipocei.github.io/tennis/B2.html",
+                icon: "group",
+                color: "B2"
+            },
+            { 
+                name: "B3", 
+                title: "Categoria B3", 
+                url: "https://gipocei.github.io/tennis/B3.html",
+                icon: "group",
+                color: "B3"
+            },
+            { 
+                name: "C1", 
+                title: "Categoria C1", 
+                url: "https://gipocei.github.io/tennis/C1.html",
+                icon: "grass",
+                color: "C1"
+            },
+            { 
+                name: "C2", 
+                title: "Categoria C2", 
+                url: "https://gipocei.github.io/tennis/C2.html",
+                icon: "grass",
+                color: "C2"
+            }
+        ];
+        
+        // Genera le card dinamicamente
+        function generateCategoryCards() {
+            const grid = document.getElementById('categories-grid');
+            if (!grid) return;
+            
+            grid.innerHTML = '';
+            
+            categories.forEach(cat => {
+                const card = document.createElement('a');
+                card.href = cat.url;
+                card.target = "_blank";
+                card.className = `category-card category-${cat.color}`;
+                card.setAttribute('aria-label', `Vai alla classifica della categoria ${cat.name}`);
+                
+                card.innerHTML = `
+                    <div class="category-icon">
+                        <i class="material-icons">${cat.icon}</i>
+                    </div>
+                    <div class="category-title">${cat.name}</div>
+                    <div class="category-subtitle">${cat.title}</div>
+                    <span class="category-status">
+                        <i class="material-icons" style="font-size: 14px; vertical-align: middle;">check_circle</i> Classifica aggiornata
+                    </span>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+        
+        // Avvia al caricamento della pagina
+        document.addEventListener('DOMContentLoaded', function() {
+            generateCategoryCards();
+        });
+    </script>
+</body>
+</html>
