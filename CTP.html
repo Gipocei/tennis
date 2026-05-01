@@ -1,357 +1,673 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex">
-    <title>C.T.P. - Campionati 2025-2026</title>
-    <!-- Material Design Lite -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-blue.min.css">
-    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <!-- Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #3f51b5;
-            --secondary-color: #ff4081;
-            --success-color: #4caf50;
-            --warning-color: #ff9800;
-            --info-color: #2196f3;
-        }
-        
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
-            min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        /* Header */
-        .tournament-title {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 30px 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            text-align: center;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-        }
-        
-        .tournament-title h1 {
-            color: white;
-            margin: 0;
-            font-size: 2.5em;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
-        
-        .tournament-title p {
-            color: rgba(255,255,255,0.9);
-            margin: 15px 0 0;
-            font-size: 1.1em;
-        }
-        
-        /* Card sezioni */
-        .section-card {
-            background-color: white;
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .section-card h2 {
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 12px;
-            margin-top: 0;
-            margin-bottom: 24px;
-            font-size: 1.6em;
-        }
-        
-        /* Griglia categorie */
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-        
-        .category-card {
-            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-            text-decoration: none;
-            color: #333;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            border: 1px solid #e9ecef;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .category-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
-            border-color: var(--primary-color);
-        }
-        
-        .category-icon {
-            width: 70px;
-            height: 70px;
-            background-color: rgba(63, 81, 181, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 16px;
-        }
-        
-        .category-icon i {
-            font-size: 36px;
-            color: var(--primary-color);
-        }
-        
-        .category-title {
-            font-size: 1.8em;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin: 8px 0;
-        }
-        
-        .category-subtitle {
-            font-size: 0.85em;
-            color: #6c757d;
-            margin-bottom: 12px;
-        }
-        
-        .category-status {
-            font-size: 0.8em;
-            background-color: #e8f5e9;
-            color: #2e7d32;
-            padding: 4px 12px;
-            border-radius: 20px;
-            display: inline-block;
-            margin-top: 8px;
-        }
-        
-        /* Info box */
-        .info-box {
-            background-color: #e3f2fd;
-            padding: 20px;
-            border-radius: 12px;
-            border-left: 4px solid var(--info-color);
-            margin-top: 20px;
-        }
-        
-        .info-box h3 {
-            color: var(--info-color);
-            margin-top: 0;
-            margin-bottom: 12px;
-            font-size: 1.2em;
-        }
-        
-        .info-box p {
-            margin: 8px 0;
-            color: #495057;
-            line-height: 1.5;
-        }
-        
-        .info-box a {
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-        
-        .info-box a:hover {
-            text-decoration: underline;
-        }
-        
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 20px;
-            color: #6c757d;
-            font-size: 0.85em;
-            border-top: 1px solid #dee2e6;
-            margin-top: 20px;
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            body {
-                padding: 12px;
-            }
-            
-            .tournament-title h1 {
-                font-size: 1.8em;
-            }
-            
-            .tournament-title p {
-                font-size: 0.9em;
-            }
-            
-            .section-card {
-                padding: 16px;
-            }
-            
-            .category-card {
-                padding: 16px;
-            }
-            
-            .category-title {
-                font-size: 1.5em;
-            }
-            
-            .categories-grid {
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-                gap: 16px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .categories-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        /* Badge colori per categoria (opzionale) */
-        .category-A1 .category-icon { background-color: rgba(63, 81, 181, 0.15); }
-        .category-A2 .category-icon { background-color: rgba(33, 150, 243, 0.15); }
-        .category-B1 .category-icon { background-color: rgba(76, 175, 80, 0.15); }
-        .category-B2 .category-icon { background-color: rgba(156, 204, 101, 0.15); }
-        .category-B3 .category-icon { background-color: rgba(255, 152, 0, 0.15); }
-        .category-C1 .category-icon { background-color: rgba(255, 87, 34, 0.15); }
-        .category-C2 .category-icon { background-color: rgba(156, 39, 176, 0.15); }
-    </style>
+    <title>C.T.P. - Campionati Sociali 2025-2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════════════
+   DESIGN TOKENS — Pantone 7689 C  →  #298FC2
+═══════════════════════════════════════════════════ */
+:root {
+    --brand:         #298FC2;
+    --brand-dark:    #1a6a96;
+    --brand-darker:  #0f4d70;
+    --brand-light:   #5aacd4;
+    --brand-lt-bg:   #e8f4fb;
+    --brand-glow:    rgba(41,143,194,0.18);
+
+    /* Light */
+    --bg:            #f0f4f8;
+    --bg2:           #e4ecf2;
+    --surface:       #ffffff;
+    --surface2:      #f5f8fb;
+    --border:        #d8e4ec;
+    --border-md:     #b8ceda;
+
+    --text:          #0d1b24;
+    --text-mid:      #3d5466;
+    --text-muted:    #6a8499;
+    --text-faint:    #9ab0bf;
+
+    --header-bg:     linear-gradient(135deg, #0f4d70 0%, #1a6a96 55%, #298FC2 100%);
+    --header-line:   #5aacd4;
+
+    --card-bg:       #ffffff;
+    --card-bdr:      #d8e4ec;
+    --card-hover-bdr:#298FC2;
+    --card-hover-shadow: 0 12px 32px rgba(41,143,194,0.18);
+
+    --instr-num-bg:  #e8f4fb;
+    --instr-num-bdr: #298FC2;
+    --instr-num-col: #0f4d70;
+
+    --tab-hover-bg:  #e4ecf2;
+    --info-box-bg:   #e8f4fb;
+    --info-box-bdr:  #9ecfe8;
+    --info-box-col:  #3d5466;
+
+    --toggle-bg:     rgba(255,255,255,0.15);
+    --toggle-bdr:    rgba(255,255,255,0.28);
+
+    --shadow-sm:     0 1px 4px rgba(0,0,0,0.07);
+    --shadow:        0 2px 12px rgba(0,0,0,0.09);
+    --shadow-md:     0 4px 24px rgba(0,0,0,0.11);
+    --shadow-lg:     0 8px 40px rgba(0,0,0,0.13);
+
+    --radius:        12px;
+    --radius-sm:     8px;
+    --radius-xs:     5px;
+    --font-d: 'Barlow Condensed', sans-serif;
+    --font-b: 'Barlow', sans-serif;
+
+    /* Category accent palette */
+    --cat-A1: #0f4d70;
+    --cat-A2: #1a6a96;
+    --cat-B1: #1b7a30;
+    --cat-B2: #2e7d32;
+    --cat-B3: #e65100;
+    --cat-C1: #c62828;
+    --cat-C2: #6a1b9a;
+}
+
+[data-theme="dark"] {
+    --bg:            #0c1820;
+    --bg2:           #111f2b;
+    --surface:       #162433;
+    --surface2:      #1c2e3f;
+    --border:        rgba(41,143,194,0.15);
+    --border-md:     rgba(41,143,194,0.28);
+
+    --text:          #ddeaf3;
+    --text-mid:      #8badbf;
+    --text-muted:    #5d8599;
+    --text-faint:    #3d5c6e;
+
+    --header-bg:     linear-gradient(135deg, #07111a 0%, #0d2236 55%, #0f3a5c 100%);
+    --header-line:   #298FC2;
+
+    --card-bg:       #162433;
+    --card-bdr:      rgba(41,143,194,0.15);
+    --card-hover-bdr:#298FC2;
+    --card-hover-shadow: 0 12px 32px rgba(41,143,194,0.22);
+
+    --instr-num-bg:  rgba(41,143,194,0.12);
+    --instr-num-bdr: rgba(41,143,194,0.4);
+    --instr-num-col: #7ec8e8;
+
+    --tab-hover-bg:  rgba(255,255,255,0.04);
+    --info-box-bg:   rgba(41,143,194,0.07);
+    --info-box-bdr:  rgba(41,143,194,0.25);
+    --info-box-col:  #8badbf;
+
+    --shadow-sm:     0 1px 6px rgba(0,0,0,0.35);
+    --shadow:        0 3px 14px rgba(0,0,0,0.4);
+    --shadow-md:     0 5px 28px rgba(0,0,0,0.5);
+    --shadow-lg:     0 10px 48px rgba(0,0,0,0.6);
+}
+
+/* ═══════════════════════════════════════════════════
+   BASE
+═══════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: var(--font-b);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* subtle grid texture on bg */
+body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: radial-gradient(circle at 1px 1px, var(--border) 1px, transparent 0);
+    background-size: 28px 28px;
+    opacity: 0.45;
+    pointer-events: none;
+    z-index: 0;
+}
+[data-theme="dark"] body::before { opacity: 0.18; }
+
+.wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 18px 56px;
+    position: relative; z-index: 1;
+}
+
+/* ═══════════════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════════════ */
+.site-header {
+    background: var(--header-bg);
+    border-radius: var(--radius);
+    padding: 28px 32px 24px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-md);
+    position: relative; overflow: hidden;
+    color: #fff;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+/* Ball decoration */
+.site-header::after {
+    content: '🎾';
+    position: absolute; right: 28px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 130px; opacity: 0.06;
+    pointer-events: none; line-height: 1;
+}
+/* Accent line bottom */
+.site-header::before {
+    content: '';
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--header-line), transparent);
+    z-index: 1;
+}
+
+.header-left { flex: 1; min-width: 0; }
+
+.header-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.28);
+    color: rgba(255,255,255,0.9);
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 2.5px; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 20px; margin-bottom: 8px;
+}
+
+.site-title {
+    font-family: var(--font-d);
+    font-size: clamp(22px, 4.5vw, 46px);
+    font-weight: 800; letter-spacing: 1px;
+    color: #fff; line-height: 1.05;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.25);
+}
+
+.site-subtitle {
+    font-size: 13px; color: rgba(255,255,255,0.72);
+    margin-top: 6px; font-weight: 400;
+    display: flex; align-items: center; gap: 8px;
+}
+
+.live-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #90caf9;
+    animation: blink 1.8s ease-in-out infinite;
+    flex-shrink: 0;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+.header-right {
+    display: flex; flex-direction: column;
+    align-items: flex-end; gap: 8px; flex-shrink: 0;
+}
+
+/* ─── TOGGLE ─── */
+.theme-toggle {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--toggle-bg);
+    border: 1px solid var(--toggle-bdr);
+    border-radius: 20px; padding: 5px 13px;
+    cursor: pointer; font-size: 12px;
+    color: rgba(255,255,255,0.9);
+    font-family: var(--font-b); font-weight: 600;
+    transition: background 0.2s;
+    white-space: nowrap;
+}
+.theme-toggle:hover { background: rgba(255,255,255,0.26); }
+.toggle-label { display: none; }
+@media (min-width: 480px) { .toggle-label { display: inline; } }
+
+/* ═══════════════════════════════════════════════════
+   SECTION TITLE
+═══════════════════════════════════════════════════ */
+.section-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 20px;
+}
+.section-icon {
+    width: 34px; height: 34px; border-radius: var(--radius-xs);
+    background: var(--instr-num-bg);
+    border: 1px solid var(--instr-num-bdr);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+}
+.section-title {
+    font-family: var(--font-d);
+    font-size: 22px; font-weight: 700; letter-spacing: 0.5px;
+    color: var(--text);
+}
+
+/* ═══════════════════════════════════════════════════
+   CATEGORIES GRID
+═══════════════════════════════════════════════════ */
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.category-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-bdr);
+    border-radius: var(--radius);
+    padding: 24px 20px 20px;
+    text-decoration: none;
+    color: var(--text);
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+    position: relative; overflow: hidden;
+    cursor: pointer;
+}
+
+/* Accent stripe top */
+.category-card::before {
+    content: '';
+    position: absolute; left: 0; right: 0; top: 0;
+    height: 3px;
+    background: var(--cat-accent, var(--brand));
+    border-radius: var(--radius) var(--radius) 0 0;
+    transition: height 0.22s ease;
+}
+.category-card:hover::before { height: 5px; }
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--card-hover-shadow);
+    border-color: var(--card-hover-bdr);
+}
+
+.cat-icon-wrap {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: var(--cat-icon-bg, var(--brand-lt-bg));
+    border: 2px solid var(--cat-icon-bdr, var(--brand-lt-bg));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; margin-bottom: 14px;
+    transition: transform 0.22s ease;
+    flex-shrink: 0;
+}
+.category-card:hover .cat-icon-wrap { transform: scale(1.1) rotate(-4deg); }
+
+.cat-name {
+    font-family: var(--font-d);
+    font-size: 34px; font-weight: 800;
+    letter-spacing: 1px; line-height: 1;
+    color: var(--cat-accent, var(--brand));
+    margin-bottom: 4px;
+}
+
+.cat-subtitle {
+    font-size: 12px; color: var(--text-muted);
+    font-weight: 500; margin-bottom: 14px;
+    letter-spacing: 0.3px;
+}
+
+.cat-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: var(--cat-badge-bg, var(--brand-lt-bg));
+    border: 1px solid var(--cat-badge-bdr, rgba(41,143,194,0.25));
+    color: var(--cat-accent, var(--brand));
+    font-size: 11px; font-weight: 700;
+    padding: 4px 11px; border-radius: 20px;
+    letter-spacing: 0.3px;
+    transition: background 0.2s;
+}
+.category-card:hover .cat-badge {
+    background: var(--cat-accent, var(--brand));
+    color: #fff;
+    border-color: transparent;
+}
+
+/* Arrow hint */
+.cat-arrow {
+    position: absolute; right: 14px; bottom: 14px;
+    font-size: 16px; color: var(--text-faint);
+    opacity: 0; transform: translateX(-4px);
+    transition: opacity 0.2s, transform 0.2s;
+}
+.category-card:hover .cat-arrow { opacity: 1; transform: translateX(0); }
+
+/* ─── Category-specific accent colors ─── */
+.cat-a1 { --cat-accent: #0f4d70; --cat-icon-bg: rgba(15,77,112,0.1); --cat-icon-bdr: rgba(15,77,112,0.2); --cat-badge-bg: rgba(15,77,112,0.08); --cat-badge-bdr: rgba(15,77,112,0.2); }
+.cat-a2 { --cat-accent: #298FC2; --cat-icon-bg: rgba(41,143,194,0.1); --cat-icon-bdr: rgba(41,143,194,0.2); --cat-badge-bg: rgba(41,143,194,0.08); --cat-badge-bdr: rgba(41,143,194,0.2); }
+.cat-b1 { --cat-accent: #1b7a30; --cat-icon-bg: rgba(27,122,48,0.10); --cat-icon-bdr: rgba(27,122,48,0.2); --cat-badge-bg: rgba(27,122,48,0.08); --cat-badge-bdr: rgba(27,122,48,0.2); }
+.cat-b2 { --cat-accent: #2e7d32; --cat-icon-bg: rgba(46,125,50,0.10); --cat-icon-bdr: rgba(46,125,50,0.2); --cat-badge-bg: rgba(46,125,50,0.08); --cat-badge-bdr: rgba(46,125,50,0.2); }
+.cat-b3 { --cat-accent: #bf6000; --cat-icon-bg: rgba(191,96,0,0.10);  --cat-icon-bdr: rgba(191,96,0,0.2);  --cat-badge-bg: rgba(191,96,0,0.08);  --cat-badge-bdr: rgba(191,96,0,0.2); }
+.cat-c1 { --cat-accent: #b71c1c; --cat-icon-bg: rgba(183,28,28,0.10); --cat-icon-bdr: rgba(183,28,28,0.2); --cat-badge-bg: rgba(183,28,28,0.08); --cat-badge-bdr: rgba(183,28,28,0.2); }
+.cat-c2 { --cat-accent: #6a1b9a; --cat-icon-bg: rgba(106,27,154,0.10);--cat-icon-bdr: rgba(106,27,154,0.2);--cat-badge-bg: rgba(106,27,154,0.08);--cat-badge-bdr: rgba(106,27,154,0.2); }
+
+/* ═══════════════════════════════════════════════════
+   HOW IT WORKS
+═══════════════════════════════════════════════════ */
+.how-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+    margin-bottom: 28px;
+}
+
+.how-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-bdr);
+    border-radius: var(--radius-sm);
+    padding: 16px 18px;
+    display: flex; align-items: flex-start; gap: 12px;
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.2s;
+}
+.how-card:hover { border-color: var(--brand); }
+
+.how-num {
+    width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+    background: var(--instr-num-bg);
+    border: 1.5px solid var(--instr-num-bdr);
+    color: var(--instr-num-col);
+    font-weight: 800; font-size: 13px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-d); letter-spacing: 0;
+}
+
+.how-body h4 {
+    font-size: 13px; font-weight: 700;
+    color: var(--text); margin-bottom: 4px;
+}
+.how-body p {
+    font-size: 12px; color: var(--text-muted);
+    line-height: 1.55;
+}
+
+/* ═══════════════════════════════════════════════════
+   INFO BOX
+═══════════════════════════════════════════════════ */
+.info-box {
+    background: var(--info-box-bg);
+    border: 1px solid var(--info-box-bdr);
+    border-radius: var(--radius-sm);
+    padding: 16px 20px;
+    font-size: 13px;
+    color: var(--info-box-col);
+    line-height: 1.7;
+    margin-bottom: 28px;
+}
+.info-box strong { color: var(--brand-dark); }
+[data-theme="dark"] .info-box strong { color: var(--brand-light); }
+
+/* ═══════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════ */
+.site-footer {
+    text-align: center;
+    padding: 20px 0 0;
+    border-top: 1px solid var(--border);
+    color: var(--text-faint);
+    font-size: 12px;
+    line-height: 2;
+}
+.site-footer span {
+    display: inline-block;
+    background: var(--instr-num-bg);
+    border: 1px solid var(--instr-num-bdr);
+    color: var(--brand);
+    border-radius: 20px;
+    padding: 2px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+/* ═══════════════════════════════════════════════════
+   STAGGERED ENTRANCE ANIMATION
+═══════════════════════════════════════════════════ */
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.category-card {
+    animation: slideUp 0.4s ease both;
+}
+/* delay each card */
+.category-card:nth-child(1)  { animation-delay: 0.05s; }
+.category-card:nth-child(2)  { animation-delay: 0.10s; }
+.category-card:nth-child(3)  { animation-delay: 0.15s; }
+.category-card:nth-child(4)  { animation-delay: 0.20s; }
+.category-card:nth-child(5)  { animation-delay: 0.25s; }
+.category-card:nth-child(6)  { animation-delay: 0.30s; }
+.category-card:nth-child(7)  { animation-delay: 0.35s; }
+
+.how-card {
+    animation: slideUp 0.4s ease both;
+}
+.how-card:nth-child(1) { animation-delay: 0.40s; }
+.how-card:nth-child(2) { animation-delay: 0.45s; }
+.how-card:nth-child(3) { animation-delay: 0.50s; }
+.how-card:nth-child(4) { animation-delay: 0.55s; }
+.how-card:nth-child(5) { animation-delay: 0.60s; }
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+    .wrap { padding: 12px 11px 40px; }
+    .site-header { padding: 18px 16px; }
+    .site-header::after { display: none; }
+    .categories-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .cat-name { font-size: 28px; }
+    .cat-icon-wrap { width: 52px; height: 52px; font-size: 22px; }
+    .how-grid { grid-template-columns: 1fr; }
+    .header-right { flex-direction: row; align-items: center; }
+}
+@media (max-width: 360px) {
+    .categories-grid { grid-template-columns: 1fr; }
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header principale -->
-        <div class="tournament-title">
-            <h1>C.T.P. - Campionati Sociali 2025-2026</h1>
-            <p>Classifiche e risultati in tempo reale</p>
-        </div>
-        
-        <!-- Sezione categorie -->
-        <div class="section-card">
-            <h2><i class="material-icons" style="font-size: 28px; vertical-align: middle;">sports_tennis</i> Scegli la tua categoria</h2>
-            <div class="categories-grid" id="categories-grid">
-                <!-- Le card verranno generate da JavaScript per mantenere i link facilmente modificabili -->
+<div class="wrap">
+
+    <!-- ═══ HEADER ═══ -->
+    <header class="site-header">
+        <div class="header-left">
+            <div class="header-badge">🎾 Circolo Tennis Puccini</div>
+            <div class="site-title">C.T.P. — Campionati Sociali<br>2025-2026</div>
+            <div class="site-subtitle">
+                <div class="live-dot"></div>
+                Classifiche e risultati in tempo reale
             </div>
         </div>
-        
-        <!-- Info su come funziona -->
-        <div class="info-box">
-            <h3><i class="material-icons">info</i> Come funziona</h3>
-            <p>📊 <strong>Classifiche in tempo reale</strong> – I risultati vengono aggiornati automaticamente dopo ogni inserimento.</p>
-            <p>✍️ <strong>Inserimento risultati</strong> – Clicca sul pulsante "Inserisci Risultato" nella pagina della tua categoria per comunicare il punteggio della partita.</p>
-            <p>🔄 <strong>Aggiornamento automatico</strong> – Le pagine si ricaricano ogni 60 secondi con i dati più recenti.</p>
-            <p>📱 <strong>Accesso da mobile</strong> – Le tabelle sono ottimizzate per essere consultate comodamente da smartphone.</p>
-            <p>❓ <strong>Hai sbagliato?</strong> – Nessun problema, reinserisci la stessa partita: il sistema terrà l'ultimo risultato inserito.</p>
+        <div class="header-right">
+            <button class="theme-toggle" onclick="toggleTheme()" title="Cambia tema">
+                <span id="theme-icon">🌙</span>
+                <span class="toggle-label" id="theme-label">Dark</span>
+            </button>
         </div>
-        
-        <!-- Footer -->
-        <div class="footer">
-            <p>Circolo Tennis Puccini | Campionato 2025-2026</p>
-            <p>Classifiche alimentate da dati in tempo reale • Aggiornamento automatico ogni 60 secondi</p>
+    </header>
+
+    <!-- ═══ CATEGORIES ═══ -->
+    <div class="section-header">
+        <div class="section-icon">🏅</div>
+        <div class="section-title">Scegli la tua categoria</div>
+    </div>
+
+    <div class="categories-grid" id="categories-grid">
+        <!-- Generated by JS -->
+    </div>
+
+    <!-- ═══ COME FUNZIONA ═══ -->
+    <div class="section-header">
+        <div class="section-icon">ℹ️</div>
+        <div class="section-title">Come funziona</div>
+    </div>
+
+    <div class="how-grid">
+        <div class="how-card">
+            <div class="how-num">1</div>
+            <div class="how-body">
+                <h4>Classifiche in tempo reale</h4>
+                <p>I risultati vengono aggiornati automaticamente ogni 60 secondi dopo ogni inserimento.</p>
+            </div>
+        </div>
+        <div class="how-card">
+            <div class="how-num">2</div>
+            <div class="how-body">
+                <h4>Inserisci il risultato</h4>
+                <p>Clicca sul pulsante "Inserisci Risultato" nella pagina della tua categoria per comunicare il punteggio.</p>
+            </div>
+        </div>
+        <div class="how-card">
+            <div class="how-num">3</div>
+            <div class="how-body">
+                <h4>Hai sbagliato?</h4>
+                <p>Nessun problema — reinserisci la stessa partita: il sistema terrà automaticamente l'ultimo risultato inserito.</p>
+            </div>
+        </div>
+        <div class="how-card">
+            <div class="how-num">4</div>
+            <div class="how-body">
+                <h4>Mobile first</h4>
+                <p>Tabelle e classifiche ottimizzate per essere consultate comodamente da qualsiasi smartphone.</p>
+            </div>
+        </div>
+        <div class="how-card">
+            <div class="how-num">5</div>
+            <div class="how-body">
+                <h4>Statistiche giocatore</h4>
+                <p>Ogni categoria mostra statistiche personali dettagliate: clicca sul nome del giocatore in classifica.</p>
+            </div>
         </div>
     </div>
 
-    <script>
-        // Definizione delle 7 categorie con i relativi link
-        const categories = [
-            { 
-                name: "A1", 
-                title: "Categoria A1", 
-                url: "https://gipocei.github.io/tennis/A1.html",
-                icon: "emoji_events",
-                color: "A1"
-            },
-            { 
-                name: "A2", 
-                title: "Categoria A2", 
-                url: "https://gipocei.github.io/tennis/A2.html",
-                icon: "sports_tennis",
-                color: "A2"
-            },
-            { 
-                name: "B1", 
-                title: "Categoria B1", 
-                url: "https://gipocei.github.io/tennis/B1.html",
-                icon: "group",
-                color: "B1"
-            },
-            { 
-                name: "B2", 
-                title: "Categoria B2", 
-                url: "https://gipocei.github.io/tennis/B2.html",
-                icon: "group",
-                color: "B2"
-            },
-            { 
-                name: "B3", 
-                title: "Categoria B3", 
-                url: "https://gipocei.github.io/tennis/B3.html",
-                icon: "group",
-                color: "B3"
-            },
-            { 
-                name: "C1", 
-                title: "Categoria C1", 
-                url: "https://gipocei.github.io/tennis/C1.html",
-                icon: "grass",
-                color: "C1"
-            },
-            { 
-                name: "C2", 
-                title: "Categoria C2", 
-                url: "https://gipocei.github.io/tennis/C2.html",
-                icon: "grass",
-                color: "C2"
-            }
-        ];
-        
-        // Genera le card dinamicamente
-        function generateCategoryCards() {
-            const grid = document.getElementById('categories-grid');
-            if (!grid) return;
-            
-            grid.innerHTML = '';
-            
-            categories.forEach(cat => {
-                const card = document.createElement('a');
-                card.href = cat.url;
-                card.target = "_blank";
-                card.className = `category-card category-${cat.color}`;
-                card.setAttribute('aria-label', `Vai alla classifica della categoria ${cat.name}`);
-                
-                card.innerHTML = `
-                    <div class="category-icon">
-                        <i class="material-icons">${cat.icon}</i>
-                    </div>
-                    <div class="category-title">${cat.name}</div>
-                    <div class="category-subtitle">${cat.title}</div>
-                    <span class="category-status">
-                        <i class="material-icons" style="font-size: 14px; vertical-align: middle;">check_circle</i> Classifica aggiornata
-                    </span>
-                `;
-                
-                grid.appendChild(card);
-            });
-        }
-        
-        // Avvia al caricamento della pagina
-        document.addEventListener('DOMContentLoaded', function() {
-            generateCategoryCards();
-        });
-    </script>
+    <!-- ═══ INFO BOX ═══ -->
+    <div class="info-box">
+        <strong>Problemi o dubbi?</strong> Contatta il responsabile del campionato via WhatsApp.
+        &nbsp;&nbsp;·&nbsp;&nbsp;
+        <strong>I dati vengono salvati su Google Sheets</strong> e le pagine leggono i dati direttamente da lì.
+        &nbsp;&nbsp;·&nbsp;&nbsp;
+        Ogni pagina categoria si aggiorna <strong>automaticamente ogni 60 secondi</strong>.
+    </div>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="site-footer">
+        <div>Circolo Tennis Puccini &nbsp;·&nbsp; Campionato Sociale 2025-2026</div>
+        <div>Classifiche alimentate da dati in tempo reale</div>
+        <span>🔄 Aggiornamento automatico ogni 60 s</span>
+    </footer>
+
+</div><!-- /wrap -->
+
+<script>
+/* ─── THEME TOGGLE ─── */
+(function() {
+    const saved = localStorage.getItem('ctp-theme') || 'light';
+    document.documentElement.setAttribute('data-theme', saved);
+})();
+
+function toggleTheme() {
+    const html = document.documentElement;
+    const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('ctp-theme', next);
+    updateToggleUI(next);
+}
+
+function updateToggleUI(theme) {
+    const icon  = document.getElementById('theme-icon');
+    const label = document.getElementById('theme-label');
+    if (!icon) return;
+    icon.textContent  = theme === 'dark' ? '☀️' : '🌙';
+    label.textContent = theme === 'dark' ? 'Light' : 'Dark';
+}
+
+/* ─── CATEGORIES DATA ─── */
+const categories = [
+    {
+        name: 'A1', label: 'Categoria A1', cls: 'cat-a1',
+        icon: '🏆',
+        url: 'https://gipocei.github.io/tennis/A1.html'
+    },
+    {
+        name: 'A2', label: 'Categoria A2', cls: 'cat-a2',
+        icon: '🎾',
+        url: 'https://gipocei.github.io/tennis/A2.html'
+    },
+    {
+        name: 'B1', label: 'Categoria B1', cls: 'cat-b1',
+        icon: '🟢',
+        url: 'https://gipocei.github.io/tennis/B1.html'
+    },
+    {
+        name: 'B2', label: 'Categoria B2', cls: 'cat-b2',
+        icon: '🟩',
+        url: 'https://gipocei.github.io/tennis/B2.html'
+    },
+    {
+        name: 'B3', label: 'Categoria B3', cls: 'cat-b3',
+        icon: '🟠',
+        url: 'https://gipocei.github.io/tennis/B3.html'
+    },
+    {
+        name: 'C1', label: 'Categoria C1', cls: 'cat-c1',
+        icon: '🔴',
+        url: 'https://gipocei.github.io/tennis/C1.html'
+    },
+    {
+        name: 'C2', label: 'Categoria C2', cls: 'cat-c2',
+        icon: '🟣',
+        url: 'https://gipocei.github.io/tennis/C2.html'
+    }
+];
+
+function buildCards() {
+    const grid = document.getElementById('categories-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    categories.forEach(cat => {
+        const a = document.createElement('a');
+        a.href = cat.url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.className = `category-card ${cat.cls}`;
+        a.setAttribute('aria-label', `Vai alla classifica ${cat.label}`);
+
+        a.innerHTML = `
+            <div class="cat-icon-wrap">${cat.icon}</div>
+            <div class="cat-name">${cat.name}</div>
+            <div class="cat-subtitle">${cat.label}</div>
+            <div class="cat-badge">
+                <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor" style="flex-shrink:0">
+                    <circle cx="4" cy="4" r="3"/>
+                </svg>
+                Classifica aggiornata
+            </div>
+            <div class="cat-arrow">→</div>
+        `;
+        grid.appendChild(a);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    buildCards();
+    updateToggleUI(document.documentElement.getAttribute('data-theme'));
+});
+</script>
 </body>
 </html>
