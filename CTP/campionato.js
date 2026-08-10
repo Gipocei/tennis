@@ -392,6 +392,7 @@ function processGoogleSheetsData(data) {
         player2:   findIdx(columns, ['Giocatore 2','giocatore2'], 3),
         score2:    findIdx(columns, ['Punteggio Giocatore 2','Punteggio 2','Games Giocatore 2','Games 2'], 4)
     };
+
     data.table.rows.forEach((row, idx) => {
         if (idx === 0 && row.c[0] && ['Timestamp','Ora','Data'].includes(getCellValue(row.c[0]))) return;
         const p1 = getCellValue(row.c[fi.player1]);
@@ -403,17 +404,30 @@ function processGoogleSheetsData(data) {
         const np1 = normalizePlayerName(p1), np2 = normalizePlayerName(p2);
         if (!players.includes(np1) || !players.includes(np2)) return;
         const dateObj = parseDate(ts);
-        rawMatches.push({ player1: np1, player2: np2, score1: s1, score2: s2,
+
+        rawMatches.push({ 
+            player1: np1, 
+            player2: np2, 
+            score1: s1, 
+            score2: s2,
             date: formatDateTime(ts),
-            timestamp: isNaN(dateObj.getTime()) ? Date.now() : dateObj.getTime() });
+            timestamp: isNaN(dateObj.getTime()) ? Date.now() : dateObj.getTime(),
+            rowIdx: idx
+        });
     });
+
     const latestMap = new Map(), countMap = new Map();
     rawMatches.forEach(m => {
         const key = [m.player1, m.player2].sort().join('|');
         countMap.set(key, (countMap.get(key) || 0) + 1);
         const ex = latestMap.get(key);
-        if (!ex || m.timestamp > ex.timestamp) latestMap.set(key, m);
+
+        // Prevale la partita con data/ora più recente O l'ultima riga inserita nel foglio (rowIdx maggiore)
+        if (!ex || m.timestamp > ex.timestamp || (m.timestamp === ex.timestamp && m.rowIdx >= ex.rowIdx)) {
+            latestMap.set(key, m);
+        }
     });
+
     duplicatePairs.clear();
     for (let [key, count] of countMap) if (count > 1) duplicatePairs.add(key);
     matches = Array.from(latestMap.values());
@@ -423,16 +437,26 @@ function findIdx(cols, terms, def) {
     const i = cols.findIndex(c => c && terms.some(t => c.includes(t) || c.toLowerCase().includes(t.toLowerCase())));
     return i !== -1 ? i : def;
 }
+
 function formatDateTime(ts) {
-    const d = parseDate(ts); if (isNaN(d.getTime())) return String(ts);
+    const d = parseDate(ts); 
+    if (isNaN(d.getTime())) return String(ts);
     return `${d.getDate().toString().padStart(2,'0')}/${(d.getMonth()+1).toString().padStart(2,'0')}/${d.getFullYear()} ore ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
 }
+
 function parseDate(ts) {
     if (ts === null || ts === undefined) return new Date();
     if (typeof ts === 'number') return new Date(ts);
     if (typeof ts === 'string') {
         const m = ts.match(/Date\((\d+),(\d+),(\d+),(\d+),(\d+),(\d+)\)/);
         if (m) { const [,y,mo,d,h,mi,s] = m.map(Number); return new Date(y,mo,d,h,mi,s); }
+
+        // Supporto per formato italiano GG/MM/AAAA HH:MM:SS (Google Forms)
+        const itMatch = ts.trim().match(/^(\d{1,2})[\/\.-](\d{1,2})[\/\.-](\d{4})(?:\s+(\d{1,2})[:\.](\d{1,2})(?:[:\.](\d{1,2}))?)?/);
+        if (itMatch) {
+            const [, d, mo, y, h, mi, s] = itMatch;
+            return new Date(Number(y), Number(mo) - 1, Number(d), Number(h || 0), Number(mi || 0), Number(s || 0));
+        }
         return new Date(ts);
     }
     if (typeof ts === 'object') {
@@ -444,11 +468,13 @@ function parseDate(ts) {
     }
     return new Date(ts);
 }
+
 function normalizePlayerName(name) {
     if (!name) return '';
     const t = name.toString().trim();
     return players.find(p => p.toLowerCase() === t.toLowerCase()) || t;
 }
+
 function parseScore(s) {
     if (typeof s === 'number') return Math.max(0, Math.min(100, s));
     if (typeof s === 'string') { const p = parseInt(s.trim().replace(',','.')); return isNaN(p) ? 0 : Math.max(0,Math.min(100,p)); }
@@ -921,7 +947,6 @@ function updatePlayerStats(playerName) {
     const mc = playerMatches.length;
     const avg = mc>0?(totalGames/mc).toFixed(2):'0';
     const rem = (players.length-1)-mc;
-    const winPct = mc>0?Math.round((ps.matchesWon/mc)*100):0;
     const initials = playerName.replace("'",'').split(' ').map(w=>w[0]).join('').slice(0,2);
     const isRet = ps.isRetired;
 
